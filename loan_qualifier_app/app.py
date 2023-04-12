@@ -35,7 +35,7 @@ def load_bank_data():
         The bank data from the data rate sheet CSV file.
     """
 
-    csvpath = questionary.text("~Desktop/Berkeley_Fintech_Bootcamp/Starter_Code_2/loan_qualifier_app/daily_rate_sheet.csv").ask()
+    csvpath = questionary.text("Enter file path for rate sheet").ask()
     csvpath = Path(csvpath)
     if not csvpath.exists():
         sys.exit(f"Oops! Can't find this path: {csvpath}")
@@ -114,22 +114,16 @@ def save_qualifying_loans(qualifying_loans):
     Args:
         qualifying_loans (list of lists): The qualifying bank loans.
     """
-if not qualifying_loans:
+    if not qualifying_loans:
         sys.exit("Sorry, there are no qualifying loans!")
 
-saveFile = questionary.confirm("Would you like to save the qualifying loans?").ask()
+    saveFile = questionary.confirm("Would you like to save the qualifying loans?").ask()
 
-if saveFile:
+    if saveFile:        
         csvpath = questionary.text(
             "Please enter a filepath for the saved data: (qualifying_loans.csv)").ask()
         save_csv(Path(csvpath), qualifying_loans)
-csvpath = Path("my_output.csv")
-with open(csvpath, 'w', newline='') as csvfile:
-    csvwriter = csv.writer(csvfile)
-    for row in data:
-        csvwriter.writerow(row.values())
-
-
+    
 def run():
     """The main function for running the script."""
 
